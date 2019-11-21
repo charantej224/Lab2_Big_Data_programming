@@ -1,15 +1,14 @@
-from pyspark.sql import SparkSession
 from pyspark.sql import *
 from pyspark.sql.types import DoubleType
 
 ## a. Import the dataset and create df and print Schema
 spark = SparkSession \
     .builder \
-    .appName("Python Spark SQL basic example") \
-    .config("spark.some.config.option", "some-value") \
+    .appName("Q2 : spark sql ") \
+    .config("spark.some.config.option", "") \
     .getOrCreate()
 
-df = spark.read.csv("DataSet/WorldCupMatches.csv", header=True);
+df = spark.read.csv("DataSet/WorldCupMatches.csv", header=True)
 df.show()
 print(df.schema)
 

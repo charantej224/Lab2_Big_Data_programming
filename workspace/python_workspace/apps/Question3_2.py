@@ -19,7 +19,6 @@ Port = 9998
 lines = ssc.socketTextStream(IP, Port)
 
 words = lines.flatMap(lambda line: queryjson(line))
-
 pairs = words.map(lambda word: (word, 1))
 wordCounts = pairs.reduceByKey(lambda x, y: x + y)
 wordCounts.pprint()
