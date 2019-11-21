@@ -1,8 +1,39 @@
-[error] sbt.librarymanagement.ResolveException: Error downloading graphframes:graphframes:0.7.0-spark2.4-s_2.11
+[error] sbt.librarymanagement.ResolveException: Error downloading org.apache.spark:spark-graphx_2.12:2.1.0
 [error]   Not found
 [error]   Not found
-[error]   not found: /home/charan/.ivy2/local/graphframes/graphframes/0.7.0-spark2.4-s_2.11/ivys/ivy.xml
-[error]   not found: https://repo1.maven.org/maven2/graphframes/graphframes/0.7.0-spark2.4-s_2.11/graphframes-0.7.0-spark2.4-s_2.11.pom
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-graphx_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-graphx_2.12/2.1.0/spark-graphx_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-graphx_2.12/2.1.0/spark-graphx_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-sql_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-sql_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-sql_2.12/2.1.0/spark-sql_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-sql_2.12/2.1.0/spark-sql_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-streaming_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-streaming_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-streaming_2.12/2.1.0/spark-streaming_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-streaming_2.12/2.1.0/spark-streaming_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-streaming-twitter_2.12:1.6.3
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-streaming-twitter_2.12/1.6.3/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-streaming-twitter_2.12/1.6.3/spark-streaming-twitter_2.12-1.6.3.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-streaming-twitter_2.12/1.6.3/spark-streaming-twitter_2.12-1.6.3.pom
+[error] Error downloading org.apache.spark:spark-core_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-core_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-core_2.12/2.1.0/spark-core_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-core_2.12/2.1.0/spark-core_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-mllib_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-mllib_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-mllib_2.12/2.1.0/spark-mllib_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-mllib_2.12/2.1.0/spark-mllib_2.12-2.1.0.pom
 [error] 	at lmcoursier.CoursierDependencyResolution.unresolvedWarningOrThrow(CoursierDependencyResolution.scala:245)
 [error] 	at lmcoursier.CoursierDependencyResolution.$anonfun$update$34(CoursierDependencyResolution.scala:214)
 [error] 	at scala.util.Either$LeftProjection.map(Either.scala:573)
@@ -33,8 +64,39 @@
 [error] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 [error] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 [error] 	at java.lang.Thread.run(Thread.java:748)
-[error] (ssExtractDependencies) sbt.librarymanagement.ResolveException: Error downloading graphframes:graphframes:0.7.0-spark2.4-s_2.11
+[error] (ssExtractDependencies) sbt.librarymanagement.ResolveException: Error downloading org.apache.spark:spark-graphx_2.12:2.1.0
 [error]   Not found
 [error]   Not found
-[error]   not found: /home/charan/.ivy2/local/graphframes/graphframes/0.7.0-spark2.4-s_2.11/ivys/ivy.xml
-[error]   not found: https://repo1.maven.org/maven2/graphframes/graphframes/0.7.0-spark2.4-s_2.11/graphframes-0.7.0-spark2.4-s_2.11.pom
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-graphx_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-graphx_2.12/2.1.0/spark-graphx_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-graphx_2.12/2.1.0/spark-graphx_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-sql_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-sql_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-sql_2.12/2.1.0/spark-sql_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-sql_2.12/2.1.0/spark-sql_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-streaming_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-streaming_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-streaming_2.12/2.1.0/spark-streaming_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-streaming_2.12/2.1.0/spark-streaming_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-streaming-twitter_2.12:1.6.3
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-streaming-twitter_2.12/1.6.3/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-streaming-twitter_2.12/1.6.3/spark-streaming-twitter_2.12-1.6.3.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-streaming-twitter_2.12/1.6.3/spark-streaming-twitter_2.12-1.6.3.pom
+[error] Error downloading org.apache.spark:spark-core_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-core_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-core_2.12/2.1.0/spark-core_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-core_2.12/2.1.0/spark-core_2.12-2.1.0.pom
+[error] Error downloading org.apache.spark:spark-mllib_2.12:2.1.0
+[error]   Not found
+[error]   Not found
+[error]   not found: /home/charan/.ivy2/local/org.apache.spark/spark-mllib_2.12/2.1.0/ivys/ivy.xml
+[error]   not found: https://repo1.maven.org/maven2/org/apache/spark/spark-mllib_2.12/2.1.0/spark-mllib_2.12-2.1.0.pom
+[error]   not found: https://dl.bintray.com/spark-packages/maven/org/apache/spark/spark-mllib_2.12/2.1.0/spark-mllib_2.12-2.1.0.pom

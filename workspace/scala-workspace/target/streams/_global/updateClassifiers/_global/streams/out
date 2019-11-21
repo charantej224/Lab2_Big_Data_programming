@@ -1,4 +1,1 @@
-[debug] "not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/home/charan/workspaces/big_data_programming/Lab2_Big_Data_programming/workspace/scala-workspace/"), "scala-workspace")...
-[debug] Done updating ProjectRef(uri("file:/home/charan/workspaces/big_data_programming/Lab2_Big_Data_programming/workspace/scala-workspace/"), "scala-workspace")
-[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
+[warn] insecure HTTP request is deprecated 'http://repo.akka.io/releases/'; switch to HTTPS or opt-in as ("Akka Repository" at "http://repo.akka.io/releases/").withAllowInsecureProtocol(true)
