@@ -13,15 +13,15 @@ ACCESS_SECRET = 'DJ8UYi8ZZbKzKsSxbHtvvXsgmxwfwlWKGTTxjRZJnc7qP'
 my_auth = requests_oauthlib.OAuth1(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET)
 
 
-class TweetsListener(StreamListener):
+class TweetCollector(StreamListener):
 
-    def __init__(self, csocket):
-        self.client_socket = csocket
+    def __init__(self, client_socket):
+        self.client_socket = client_socket
 
-    def on_data(self, data):
+    def on_data(self, json_data):
         try:
-            print(data.split('\n'))
-            self.client_socket.send(str.encode(data))
+            print(json_data)
+            self.client_socket.send(str.encode(json_data))
             return True
         except BaseException as e:
             print("Error on_data: %s" % str(e))
@@ -32,26 +32,24 @@ class TweetsListener(StreamListener):
         return True
 
 
-def sendData(c_socket):
-    auth = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
+def sendData(socket_to_stream):
+    auth_config = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth_config.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
-    twitter_stream = Stream(auth, TweetsListener(c_socket))
-    twitter_stream.filter(track=['dog'])
+    twitter_stream = Stream(auth_config, TweetCollector(socket_to_stream))
+    twitter_stream.filter(track=['ghost', 'demon', 'mystery'])
 
 
 if __name__ == "__main__":
-    s = socket.socket()  # Create a socket object
-    host = "localhost"  # Get local machine name
-    port = 9998  # Reserve a port for your service.
-    s.bind((host, port))  # Bind to the port
+    socket_object = socket.socket()  # socket created at this point
+    socket_object.bind(('localhost', 5656))  # socket binding to local machines port for communication passing
 
-    print("Listening on port: %s" % str(port))
+    print("Listening on port: %s" % str(5656))
 
-    s.listen(5)  # Now wait for client connection.
-    c, addr = s.accept()  # Establish connection with client.
-    print(c)
+    socket_object.listen(5)  # Allows tops of 5 connection along with wait for connection to stream.
+    connection, address = socket_object.accept()  # Establish connection with client.
+    print(connection)
 
-    print("Received request from: " + str(addr))
+    print("Received request from: " + str(address))
 
-    sendData(c)
+    sendData(connection)

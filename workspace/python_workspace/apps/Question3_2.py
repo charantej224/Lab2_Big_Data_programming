@@ -1,26 +1,21 @@
 import json
+
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 
 
-def queryjson(tweet):
-    strtweet = tweet.encode('utf-8')
-    tweetdict = json.loads(strtweet)
-    text = tweetdict["text"]
-    strtext = text.split(' ')
-    return strtext
+def map_json(each_tweet):
+    json_dict_tweet = json.loads(each_tweet.encode('utf-8'))
+    return json_dict_tweet["text"].split(" ")
 
 
-sc = SparkContext("local[2]", "Twitter Demo")
-sc.setLogLevel("ERROR")
-ssc = StreamingContext(sc, 10)
-IP = "localhost"
-Port = 9998
-lines = ssc.socketTextStream(IP, Port)
+spark_context = SparkContext("local[2]", "Twitter Demo").setLogLevel('ERROR')
+# 10 seconds waiting. doesn't make it real time streaming
+streaming_context = StreamingContext(spark_context, 10)
+lines = streaming_context.socketTextStream('localhost', 5656)
 
-words = lines.flatMap(lambda line: queryjson(line))
-pairs = words.map(lambda word: (word, 1))
-wordCounts = pairs.reduceByKey(lambda x, y: x + y)
-wordCounts.pprint()
-ssc.start()
-ssc.awaitTermination()
+word_count = lines.flatMap(lambda line: map_json(line)).map(lambda word: (word, 1)).pairs.reduceByKey(
+    lambda x, y: x + y)
+print(word_count.collect())
+streaming_context.start()
+streaming_context.awaitTermination()
