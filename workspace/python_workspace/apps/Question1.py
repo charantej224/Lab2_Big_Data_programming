@@ -1,5 +1,3 @@
-from collections import Set
-
 from pyspark import SparkContext
 
 
@@ -13,7 +11,6 @@ def map_lines(each_line):
     profile = each_line[0]
     friends = each_line[1]
     return profile, friends
-
 
 
 def reduce(accum, value):

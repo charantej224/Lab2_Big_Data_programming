@@ -4,8 +4,8 @@ from pyspark.sql.types import IntegerType
 ## a. Import the dataset and create df and print Schema
 spark = SparkSession \
     .builder \
-    .appName("Q2 : spark sql ") \
-    .config("spark.some.config.option", "") \
+    .appName("Question2-Part1") \
+    .master("local[2]") \
     .getOrCreate()
 
 worldcup_matches = spark.read.csv("DataSet/WorldCupMatches.csv", header=True)

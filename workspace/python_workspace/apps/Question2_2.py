@@ -10,8 +10,8 @@ from pyspark.sql.types import StringType, IntegerType
 if __name__ == "__main__":
     spark = SparkSession \
         .builder \
-        .appName("Q2 : spark sql ") \
-        .config("spark.some.config.option", "") \
+        .appName("Question2-Part2") \
+        .master("local[2]") \
         .getOrCreate()
 
     spark_context = SparkContext.getOrCreate()
@@ -20,8 +20,7 @@ if __name__ == "__main__":
     world_cup_header = world_cup_rdd.first()
     world_cup_content = world_cup_rdd.filter(lambda line: line != world_cup_header)
 
-    # creating an RDD
-    rdd_for_dataframe = world_cup_content.map(lambda line: (line.split(","))).collect()
+    rdd_for_data_frame = world_cup_content.map(lambda line: (line.split(","))).collect()
     # print(rdd)
     # no. of Columns
     rdd_len = world_cup_content.map(lambda line: len(line.split(","))).distinct().collect()
@@ -33,32 +32,31 @@ if __name__ == "__main__":
             .takeOrdered(10, lambda x: -x[1]))
     print(rdd1)
 
-    dataframe_schema = StructType([StructField('Year', StringType(), True),
-                                   StructField('Country', StringType(), True),
-                                   StructField('Winner', StringType(), True),
-                                   StructField('Runners-Up', StringType(), True),
-                                   StructField('Third', StringType(), True),
-                                   StructField('Fourth', StringType(), True),
-                                   StructField('GoalsScored', StringType(), True),
-                                   StructField('QualifiedTeams', StringType(), True),
-                                   StructField('MatchesPlayed', StringType(), True),
-                                   StructField('Attendance', StringType(), True)])
+    data_frame_schema = StructType([StructField('Year', StringType(), True),
+                                    StructField('Country', StringType(), True),
+                                    StructField('Winner', StringType(), True),
+                                    StructField('Runners-Up', StringType(), True),
+                                    StructField('Third', StringType(), True),
+                                    StructField('Fourth', StringType(), True),
+                                    StructField('GoalsScored', StringType(), True),
+                                    StructField('QualifiedTeams', StringType(), True),
+                                    StructField('MatchesPlayed', StringType(), True),
+                                    StructField('Attendance', StringType(), True)])
 
     # Create data frame from the RDD
-    world_cup_dataframe = spark.createDataFrame(rdd_for_dataframe, dataframe_schema)
-    world_cup_dataframe.show()
-    world_cup_dataframe = world_cup_dataframe.withColumn('GoalsScored',
-                                                         world_cup_dataframe['GoalsScored'].cast(IntegerType()))
-    world_cup_dataframe = world_cup_dataframe.withColumnRenamed('Runners-Up', 'Runnersup')
+    world_cup_data_frame = spark.createDataFrame(rdd_for_data_frame, data_frame_schema)
+    world_cup_data_frame.show()
+    world_cup_data_frame = world_cup_data_frame.withColumn('GoalsScored',
+                                                           world_cup_data_frame['GoalsScored'].cast(IntegerType()))
+    world_cup_data_frame = world_cup_data_frame.withColumnRenamed('Runners-Up', 'Runnersup')
 
     # Registering Temp table.
-    world_cup_dataframe.createOrReplaceTempView("worldcup_table")
+    world_cup_data_frame.createOrReplaceTempView("worldcup_table")
 
     # venue - hosted country with highest goals (From DF)
-    world_cup_dataframe.select("Country", "GoalsScored").orderBy("GoalsScored", ascending=False).show(20,
-                                                                                                      truncate=False)
+    world_cup_data_frame.select("Country", "GoalsScored").orderBy("GoalsScored", ascending=False).show(20,
+                                                                                                       truncate=False)
     # venue - hosted country with highest goals (From DF - SQL)
-
     spark.sql(" select Country,GoalsScored FROM worldcup_table order by " +
               "GoalsScored Desc Limit 10").show()
 
@@ -68,8 +66,8 @@ if __name__ == "__main__":
      .map(lambda line: (line.split(",")[0], line.split(",")[1], line.split(",")[2]))
      .collect())
     # using DF
-    world_cup_dataframe.select("Year", "Country", "Winner").filter(
-        world_cup_dataframe["Country"] != world_cup_dataframe["Winner"]).show()
+    world_cup_data_frame.select("Year", "Country", "Winner").filter(
+        world_cup_data_frame["Country"] != world_cup_data_frame["Winner"]).show()
     # using DF - SQL
     spark.sql(" select Year,Country,Winner FROM worldcup_table where Country != Winner order by Year").show()
 
@@ -79,7 +77,7 @@ if __name__ == "__main__":
     (world_cup_content.filter(lambda line: line.split(",")[0] in years)
      .map(lambda line: (line.split(",")[0], line.split(",")[2], line.split(",")[3])).collect())
     # using DF
-    world_cup_dataframe.select("Year", "Winner", "Runnersup").filter(world_cup_dataframe.Year.isin(years)).show()
+    world_cup_data_frame.select("Year", "Winner", "Runnersup").filter(world_cup_data_frame.Year.isin(years)).show()
     # using DF - SQL
 
     spark.sql(" select Year,Winner,Runnersup FROM worldcup_table  WHERE " +
@@ -90,7 +88,7 @@ if __name__ == "__main__":
     (world_cup_content.filter(lambda line: line.split(",")[0] == "2010")
      .map(lambda line: (line.split(","))).collect())
     # using DF
-    world_cup_dataframe.filter(world_cup_dataframe.Year == "2010").show()
+    world_cup_data_frame.filter(world_cup_data_frame.Year == "2010").show()
     # using DF - Sql
     spark.sql(" select * from worldcup_table where Year == 2010 ").show()
 
@@ -99,9 +97,9 @@ if __name__ == "__main__":
     (world_cup_content.filter(lambda line: line.split(",")[8] == "64")
      .map(lambda line: (line.split(","))).collect())
     # using DF
-    world_cup_dataframe = world_cup_dataframe.withColumn('MatchesPlayed',
-                                                         world_cup_dataframe['MatchesPlayed'].cast(IntegerType()))
-    world_cup_dataframe.filter(world_cup_dataframe.MatchesPlayed == 64).show()
+    world_cup_data_frame = world_cup_data_frame.withColumn('MatchesPlayed',
+                                                           world_cup_data_frame['MatchesPlayed'].cast(IntegerType()))
+    world_cup_data_frame.filter(world_cup_data_frame.MatchesPlayed == 64).show()
 
     # using DF - SQL
     spark.sql(" select * from worldcup_table where MatchesPlayed in " +

@@ -32,24 +32,19 @@ class TweetCollector(StreamListener):
         return True
 
 
-def sendData(socket_to_stream):
+def send_data(socket_to_stream):
     auth_config = OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth_config.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
-
     twitter_stream = Stream(auth_config, TweetCollector(socket_to_stream))
     twitter_stream.filter(track=['ghost', 'demon', 'mystery'])
 
 
 if __name__ == "__main__":
-    socket_object = socket.socket()  # socket created at this point
-    socket_object.bind(('localhost', 5656))  # socket binding to local machines port for communication passing
-
-    print("Listening on port: %s" % str(5656))
-
-    socket_object.listen(5)  # Allows tops of 5 connection along with wait for connection to stream.
-    connection, address = socket_object.accept()  # Establish connection with client.
+    socket_object = socket.socket()
+    socket_object.bind(('localhost', 5656))
+    print("Waiting on Port  %s for connections to be established to stream the data" % str(5656))
+    socket_object.listen(5)
+    connection, address = socket_object.accept()
     print(connection)
-
-    print("Received request from: " + str(address))
-
-    sendData(connection)
+    print("Connection request received from client : " + str(address))
+    send_data(connection)

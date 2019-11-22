@@ -4,18 +4,17 @@ from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 
 
-def map_json(each_tweet):
-    json_dict_tweet = json.loads(each_tweet.encode('utf-8'))
-    return json_dict_tweet["text"].split(" ")
+def map_words(input_value):
+    str_value = input_value
+    dict_json = json.loads(str_value)
+    return dict_json['text'].split(" ")
 
 
-spark_context = SparkContext("local[2]", "Twitter Demo").setLogLevel('ERROR')
-# 10 seconds waiting. doesn't make it real time streaming
-streaming_context = StreamingContext(spark_context, 10)
-lines = streaming_context.socketTextStream('localhost', 5656)
-
-word_count = lines.flatMap(lambda line: map_json(line)).map(lambda word: (word, 1)).pairs.reduceByKey(
-    lambda x, y: x + y)
-print(word_count.collect())
-streaming_context.start()
-streaming_context.awaitTermination()
+if __name__ == "__main__":
+    sc = SparkContext(appName="SparkStreaming")
+    ssc = StreamingContext(sc, 10)
+    lines = ssc.socketTextStream("localhost", 5656)
+    word_counts = lines.flatMap(map_words).map(lambda x: (x, 1)).reduceByKey(lambda a, b: a + b)
+    word_counts.pprint()
+    ssc.start()
+    ssc.awaitTermination()

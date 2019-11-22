@@ -1,24 +1,22 @@
 from graphframes import GraphFrame
-from pyspark import *
 from pyspark.sql import *
 
 spark = SparkSession \
     .builder \
-    .appName("Q2 : spark sql ") \
-    .config("spark.some.config.option", "") \
+    .appName("Q4") \
     .getOrCreate()
 
-group_edges = spark.read.csv("/home/charan/workspaces/big_data_programming/Lab2_Big_Data_programming/workspace/python_workspace/apps/DataSet/group-edges.csv", header=True)
-meta_edges = spark.read.csv("/home/charan/workspaces/big_data_programming/Lab2_Big_Data_programming/workspace/python_workspace/apps/DataSet/meta-groups.csv", header=True)
+group_edges = spark.read.csv("DataSet/group-edges.csv", header=True)
+meta_edges = spark.read.csv("DataSet/meta-groups.csv", header=True)
 
-group_edges.createOrReplaceTempView("e")
-meta_edges.createOrReplaceTempView("g")
+group_edges.createOrReplaceTempView("edges")
+meta_edges.createOrReplaceTempView("vertices")
 
-g1 = spark.sql("select * from g")
-e1 = spark.sql("select * from e")
+vertices1 = spark.sql("select * from edges")
+edges1 = spark.sql("select * from vertices")
 
-vertices = g1.withColumnRenamed("group_id", "id").limit(100).distinct()
-edges = e1.withColumnRenamed("group1", "src").limit(500).distinct().withColumnRenamed("group2", "dst").limit(500).distinct()
+vertices = vertices1.withColumnRenamed("group_id", "id").limit(100).distinct()
+edges = edges1.withColumnRenamed("group1", "src").limit(500).distinct().withColumnRenamed("group2", "dst").limit(500).distinct()
 
 vertices.show(5)
 edges.show(5)
