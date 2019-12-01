@@ -35,11 +35,15 @@ def map_mapped(tuple):
     return final
 
 
-if __name__ == "__main__":
-    sc = SparkContext.getOrCreate()
-    lines = sc.textFile("DataSet/facebook_combined.txt", 1)
-    mapped = lines.map(map_lines).groupByKey()
+def run(input_file, output_file):
+    spark_context = SparkContext.getOrCreate()
+    lines_tobe_mapped = spark_context.textFile(input_file, 1)
+    mapped = lines_tobe_mapped.map(map_lines).groupByKey()
     grouped = mapped.flatMap(map_mapped)
     final = grouped.reduceByKey(reduce).filter(lambda x: len(x[1]) > 0)
     print(final.collect())
-    final.coalesce(1).saveAsTextFile("output/facebook-challenge")
+    final.coalesce(1).saveAsTextFile(output_file)
+
+
+if __name__ == "__main__":
+    run("DataSet/facebook_combined.txt", "output/facebook-challenge")

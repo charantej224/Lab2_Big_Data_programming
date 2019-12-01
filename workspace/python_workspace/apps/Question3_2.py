@@ -10,7 +10,7 @@ def map_words(input_value):
     return dict_json['text'].split(" ")
 
 
-if __name__ == "__main__":
+def run():
     sc = SparkContext(appName="SparkStreaming")
     ssc = StreamingContext(sc, 10)
     lines = ssc.socketTextStream("localhost", 5656)
@@ -18,3 +18,7 @@ if __name__ == "__main__":
     word_counts.pprint()
     ssc.start()
     ssc.awaitTermination()
+
+
+if __name__ == "__main__":
+    run()

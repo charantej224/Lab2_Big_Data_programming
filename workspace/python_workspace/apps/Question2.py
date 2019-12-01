@@ -4,13 +4,13 @@ from pyspark.sql.types import IntegerType
 '''
 a. Import the dataset and create df and print Schema
 '''
-spark = SparkSession \
+spark_session = SparkSession \
     .builder \
     .appName("Question2-Part1") \
     .master("local[2]") \
     .getOrCreate()
 
-worldcup_matches = spark.read.csv("DataSet/WorldCupMatches.csv", header=True)
+worldcup_matches = spark_session.read.csv("DataSet/WorldCupMatches.csv", header=True)
 
 worldcup_matches.printSchema()
 
@@ -54,20 +54,20 @@ worldcup_matches.filter(worldcup_matches.Year.like("1950")).show()
 print("6 Display the sum of home goals scored, grouped by each of the each team country")
 worldcup_matches.groupBy('Home_Team').sum('Home_Team_Goals').orderBy('Home_Team').dropna().show(15, truncate=True)
 
-# 7 Display the max away goals scored year wise
-print("7 Display the max away goals scored year wise")
+# 7 maximum number of goals scored year wise.
+print("7 maximum number of goals scored year wise.")
 worldcup_matches.groupBy('Year').max('Away_Team_Goals').dropna().show()
 
-# 8 finding mean, max, min etc of the attendance over the entire matches
-print("8 finding mean, max, min etc of the attendance over the entire matches")
+# 8 describing the world cup matches.
+print("8 describing the world cup matches.")
 worldcup_matches.describe(['Away_Team_Goals']).show()
 
-# 9 pairing stage wise matches with home team
-print("9 pairing stage wise matches with home team")
+# 9 cross tab with home team
+print("9 cross tab with home team")
 worldcup_matches.crosstab('Round', 'Home_Team').show()
 
-# 10 Count the total no. of matches played in 1934 && round like preliminary
-print("10 Count the total no. of matches played in 1934 && round like preliminary")
+# 10 bring out the count for total number of matches in 1934 && round like preliminary
+print("10 bring out the count for total number of matches in 1934 && round like preliminary")
 print("Matches in 1934 : " + str(worldcup_matches.filter(
     worldcup_matches.Year.like("1934") & worldcup_matches.Round.like("Preliminary round")).count()))
 
